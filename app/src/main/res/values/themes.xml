@@ -1,0 +1,6 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.FinalWork" parent="Theme.Material3.Light.NoActionBar">
+       <item name="colorPrimary">@color/my_light_primary</item>
+    </style>
+</resources>
