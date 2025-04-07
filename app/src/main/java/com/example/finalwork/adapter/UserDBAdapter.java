@@ -9,7 +9,7 @@ import com.example.finalwork.db.UserDatabaseHelper;
 import com.example.finalwork.entity.User;
 
 public class UserDBAdapter {
-    private UserDatabaseHelper dbHelper;
+    private final UserDatabaseHelper dbHelper;
 
     public UserDBAdapter(Context context) {
         dbHelper = new UserDatabaseHelper(context);
@@ -73,5 +73,50 @@ public class UserDBAdapter {
             }
         }
         return exists;
+    }
+
+    public String getUserPreference(long userId) {
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        String preferredType = "";
+
+        try {
+            db = dbHelper.getReadableDatabase();
+            cursor = db.query("user_preferences",
+                    new String[]{"preferred_type"},
+                    "user_id = ?",
+                    new String[]{String.valueOf(userId)},
+                    null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                preferredType = cursor.getString(0);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (db != null && db.isOpen()) {
+                db.close();
+            }
+        }
+        return preferredType;
+    }
+
+    // 添加保存用户偏好的方法
+    public void saveUserPreference(long userId, String preferredType) {
+        SQLiteDatabase db = null;
+        try {
+            db = dbHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("user_id", userId);
+            values.put("preferred_type", preferredType);
+
+            // 使REPLACE 语法，存在则更新，不存在则插入
+            db.replace("user_preferences", null, values);
+        } finally {
+            if (db != null && db.isOpen()) {
+                db.close();
+            }
+        }
     }
 }

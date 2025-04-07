@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_home">
+
+    <!-- 首页 -->
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.finalwork.Fragment.HomeFragment"
+        android:label="首页"
+        tools:layout="@layout/fragment_home">
+    </fragment>
+
+    <!-- 排行榜 -->
+    <fragment
+        android:id="@+id/navigation_recommend"
+        android:name="com.example.finalwork.Fragment.RecommendFragment"
+        android:label="推荐"
+        tools:layout="@layout/fragment_recommend"/>
+
+    <!-- 社区 -->
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="com.example.finalwork.Fragment.ChatFragment"
+        android:label="社区"
+        tools:layout="@layout/fragment_chat"/>
+
+
+    <!-- 收藏 -->
+    <fragment
+        android:id="@+id/navigation_collection"
+        android:name="com.example.finalwork.Fragment.CollectionFragment"
+        android:label="收藏"
+        tools:layout="@layout/fragment_collection"/>
+
+    <!-- 我的 -->
+    <fragment
+        android:id="@+id/navigation_mine"
+        android:name="com.example.finalwork.Fragment.MineFragment"
+        android:label="我的"
+        tools:layout="@layout/fragment_mine"/>
+
+</navigation>

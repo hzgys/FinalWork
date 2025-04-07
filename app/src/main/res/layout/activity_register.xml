@@ -4,198 +4,177 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".RegisterActivity">
-
-
-
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:titleTextColor="@color/black"
         app:navigationIcon="@drawable/baseline_arrow_back_24"
         app:title="注册"
-        />
-
-
+        app:titleTextColor="@color/black" />
 
     <ImageView
         android:layout_width="match_parent"
-        android:src="@mipmap/icon"
+        android:layout_height="200dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_height="300dp"/>
+        android:src="@mipmap/icon" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="#333"
-        android:text="注册"
-        android:layout_margin="5dp"
-        android:textStyle="bold"
-        />
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="26dp"
-        android:layout_marginRight="26dp"
-        android:orientation="vertical"
-        >
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:background="@drawable/login_et_bg"
             android:layout_height="50dp"
+            android:background="@drawable/login_et_bg"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 
-
-
-
             <ImageView
-                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/baseline_account_circle_24"
-                />
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/baseline_account_circle_24" />
+
             <EditText
-                android:id="@+id/et_username"
+                android:id="@+id/register_username"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:background="@null"
-                android:hint="请输入用户名"
-                android:textSize="14sp"/>
-
-
-
-
+                android:hint="请输入用户名（至少3个字符）"
+                android:textSize="14sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
-
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:background="@drawable/login_et_bg"
             android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/login_et_bg"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_marginTop="10dp">
-
-
-
+            android:paddingRight="10dp">
 
             <ImageView
-                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/baseline_key_24"
-                />
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/baseline_key_24" />
+
             <EditText
-                android:id="@+id/et_password"
+                android:id="@+id/register_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:background="@null"
-                android:hint="请输入密码"
+                android:hint="请输入密码（至少6个字符）"
                 android:inputType="textPassword"
-                android:textSize="14sp"/>
-
+                android:textSize="14sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/login_et_bg"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/baseline_key_24" />
 
+            <EditText
+                android:id="@+id/register_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:hint="请确认密码"
+                android:inputType="textPassword"
+                android:textSize="14sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="请选择您感兴趣的电影类型："
+            android:textColor="#666666"
+            android:textSize="14sp" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginTop="8dp"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="0dp">
 
-            <!-- 第一行三个 CheckBox -->
-            <LinearLayout
+            <RadioGroup
+                android:id="@+id/preferenceGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:orientation="horizontal">
 
-                <CheckBox
-                    android:id="@+id/checkEspionage"
-                    android:layout_width="0dp"
+                <RadioButton
+                    android:id="@+id/radioStory"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="谍战"
-                    android:padding="8dp"/>
+                    android:text="剧情"/>
 
-                <CheckBox
-                    android:id="@+id/checkComedy"
-                    android:layout_width="0dp"
+                <RadioButton
+                    android:id="@+id/radioComedy"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="喜剧"
-                    android:padding="8dp"/>
+                    android:text="喜剧"/>
 
-                <CheckBox
-                    android:id="@+id/checkRomance"
-                    android:layout_width="0dp"
+                <RadioButton
+                    android:id="@+id/radioCrime"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="情感"
-                    android:padding="8dp"/>
-            </LinearLayout>
+                    android:text="犯罪"/>
 
-            <!-- 第二行三个 CheckBox -->
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <CheckBox
-                    android:id="@+id/checkHorror"
-                    android:layout_width="0dp"
+                <RadioButton
+                    android:id="@+id/radioLove"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="恐怖"
-                    android:padding="8dp"/>
+                    android:text="爱情"/>
 
-                <CheckBox
-                    android:id="@+id/checkWar"
-                    android:layout_width="0dp"
+                <RadioButton
+                    android:id="@+id/radioAnimation"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="战争"
-                    android:padding="8dp"/>
+                    android:text="动画"/>
 
-                <CheckBox
-                    android:id="@+id/checkHistory"
-                    android:layout_width="0dp"
+                <RadioButton
+                    android:id="@+id/radioAdventure"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="历史"
-                    android:padding="8dp"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:text="冒险"/>
+
+            </RadioGroup>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/register"
-            android:layout_marginTop="16dp"
+            android:id="@+id/register_button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_style"
             android:text="注册"
-            android:textStyle="bold"
             android:textColor="@android:color/white"
-            app:backgroundTint="#FF0000"
-            android:background="@drawable/button_style"/>
-
+            android:textStyle="bold"
+            app:backgroundTint="#FF0000" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>

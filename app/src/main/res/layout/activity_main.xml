@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"> <!-- 确保 LinearLayout 是垂直排列 -->
+    android:orientation="vertical">
 
-    <!-- Toolbar -->
-
-
-    <!-- ImageView -->
-
-
-    <!-- Fragment 容器 -->
+    <!-- 关键修正：添加NavHostFragment类声明 -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/nav_graph"
+        app:defaultNavHost="true"
+        tools:layout="@layout/fragment_home"/>
 
-    <!-- 底部导航栏 导航菜单 -->
+    <!-- 底部导航栏 -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         app:menu="@menu/bottom_nav_menu"
         app:itemIconTint="@color/selector_bottom_nav"
         app:itemTextColor="@color/selector_bottom_nav"
-        android:background="?android:attr/windowBackground" />
+        app:labelVisibilityMode="labeled"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

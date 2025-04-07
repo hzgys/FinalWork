@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dp">
+    android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/collection_recycler_view"
+        android:id="@+id/recommendRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="8dp"
         android:clipToPadding="false"/>
 
     <TextView
-        android:id="@+id/empty_view"
+        android:id="@+id/emptyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="还没有收藏电影"
-        android:textSize="18sp"
+        android:text="暂无推荐内容"
+        android:textSize="16sp"
         android:visibility="gone"/>
 
 </FrameLayout>
