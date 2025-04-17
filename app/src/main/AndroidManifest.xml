@@ -22,9 +22,6 @@
             android:name=".AdminActivity"
             android:exported="false" />
         <activity
-            android:name=".EditMovieActivity"
-            android:exported="false" />
-        <activity
             android:name=".MovieDetailActivity"
             android:exported="false"
             android:label="电影详情" />

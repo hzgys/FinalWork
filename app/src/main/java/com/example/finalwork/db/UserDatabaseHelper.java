@@ -22,12 +22,6 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
                     "user_id INTEGER, " +
                     "preferred_type TEXT, " +         // 保留原有文本类型
                     "preferred_type_id INTEGER, " +   // 新增数字类型ID
-                    "story_rating FLOAT, " +          // 保留评分字段
-                    "comedy_rating FLOAT, " +
-                    "crime_rating FLOAT, " +
-                    "love_rating FLOAT, " +
-                    "animation_rating FLOAT, " +
-                    "adventure_rating FLOAT, " +
                     "FOREIGN KEY(user_id) REFERENCES users(id))";
     public UserDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

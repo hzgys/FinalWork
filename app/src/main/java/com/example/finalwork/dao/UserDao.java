@@ -42,13 +42,7 @@ public class UserDao {
         }
         values.put("preferred_type_id", preferredTypeId);
 
-        // 初始评分都设为0
-        values.put("story_rating", 0f);
-        values.put("comedy_rating", 0f);
-        values.put("crime_rating", 0f);
-        values.put("love_rating", 0f);
-        values.put("animation_rating", 0f);
-        values.put("adventure_rating", 0f);
+
 
         db.insert("user_preferences", null, values);
     }
@@ -111,20 +105,13 @@ public class UserDao {
 
             // 再查询偏好表
             Cursor prefCursor = db.query("user_preferences",
-                    new String[]{"preferred_type", "story_rating", "comedy_rating",
-                            "crime_rating", "love_rating", "animation_rating", "adventure_rating"},
+                    new String[]{"preferred_type"},  // 只查询需要的字段
                     "user_id = ?",
                     new String[]{String.valueOf(user.getId())},
                     null, null, null);
 
             if (prefCursor != null && prefCursor.moveToFirst()) {
                 user.setPreferredType(prefCursor.getString(prefCursor.getColumnIndexOrThrow("preferred_type")));
-                user.setStoryRating(prefCursor.getFloat(prefCursor.getColumnIndexOrThrow("story_rating")));
-                user.setComedyRating(prefCursor.getFloat(prefCursor.getColumnIndexOrThrow("comedy_rating")));
-                user.setCrimeRating(prefCursor.getFloat(prefCursor.getColumnIndexOrThrow("crime_rating")));
-                user.setLoveRating(prefCursor.getFloat(prefCursor.getColumnIndexOrThrow("love_rating")));
-                user.setAnimationRating(prefCursor.getFloat(prefCursor.getColumnIndexOrThrow("animation_rating")));
-                user.setAdventureRating(prefCursor.getFloat(prefCursor.getColumnIndexOrThrow("adventure_rating")));
                 prefCursor.close();
             }
         }

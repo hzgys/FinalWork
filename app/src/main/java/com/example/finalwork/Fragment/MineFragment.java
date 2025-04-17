@@ -39,7 +39,7 @@ public class MineFragment extends Fragment {
         // 初始化视图
         usernameTv = view.findViewById(R.id.usernameTv);
         preferredTypeTv = view.findViewById(R.id.preferredTypeTv);
-        ratingsTv = view.findViewById(R.id.ratingsTv);
+
         logoutButton = view.findViewById(R.id.logoutButton);
 
         changePasswordButton = view.findViewById(R.id.changePasswordButton);
@@ -66,17 +66,7 @@ public class MineFragment extends Fragment {
                     preferredTypeTv.setText("偏好类型：暂未设置");
                 }
 
-                String ratings = String.format(
-                        "剧情评分：%.1f\n喜剧评分：%.1f\n犯罪评分：%.1f\n" +
-                                "爱情评分：%.1f\n动画评分：%.1f\n冒险评分：%.1f",
-                        user.getStoryRating(),
-                        user.getComedyRating(),
-                        user.getCrimeRating(),
-                        user.getLoveRating(),
-                        user.getAnimationRating(),
-                        user.getAdventureRating()
-                );
-                ratingsTv.setText(ratings);
+
             }
         }
 

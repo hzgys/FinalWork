@@ -555,4 +555,102 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
         }
         return false;
     }
+
+    //电影的增删改查
+    public boolean deleteMovie(long movieId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean success = false;
+        db.beginTransaction();
+        try {
+            // 先删除关联表中的数据
+            db.delete(TABLE_FAVORITES, "movie_id = ?", new String[]{String.valueOf(movieId)});
+            db.delete(TABLE_RATINGS, "movie_id = ?", new String[]{String.valueOf(movieId)});
+            db.delete(TABLE_CLASSIFIED, "movie_id = ?", new String[]{String.valueOf(movieId)});
+
+            // 删除电影主表中的数据
+            int result = db.delete(TABLE_MOVIES, "id = ?", new String[]{String.valueOf(movieId)});
+            success = result > 0;
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+        return success;
+    }
+
+    public boolean updateMovie(Movie movie) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean success = false;
+        db.beginTransaction();
+        try {
+            ContentValues movieValues = new ContentValues();
+            movieValues.put("title", movie.getTitle());
+            movieValues.put("actors", movie.getActors());
+            movieValues.put("image_url", movie.getImageUrl());
+            movieValues.put("director", movie.getDirector());
+            movieValues.put("rating", movie.getRating());
+            movieValues.put("genre", movie.getGenre());
+            movieValues.put("language", movie.getLanguage());
+            movieValues.put("country", movie.getCountry());
+            movieValues.put("description", movie.getDescription());
+            movieValues.put("year", movie.getYear());
+
+            int movieResult = db.update(TABLE_MOVIES, movieValues, "id = ?",
+                    new String[]{String.valueOf(movie.getId())});
+
+            ContentValues classifiedValues = new ContentValues();
+            classifiedValues.put("name", movie.getName());
+            classifiedValues.put("category", movie.getCategory());
+            classifiedValues.put("address", movie.getAddress());
+
+            int classifiedResult = db.update(TABLE_CLASSIFIED, classifiedValues,
+                    "movie_id = ?", new String[]{String.valueOf(movie.getId())});
+
+            success = movieResult > 0 && classifiedResult > 0;
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+        return success;
+    }
+
+    public long addMovie(Movie movie) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        long movieId = -1;
+        db.beginTransaction();
+        try {
+            ContentValues movieValues = new ContentValues();
+            movieValues.put("title", movie.getTitle());
+            movieValues.put("actors", movie.getActors());
+            movieValues.put("image_url", movie.getImageUrl());
+            movieValues.put("director", movie.getDirector());
+            movieValues.put("rating", movie.getRating());
+            movieValues.put("genre", movie.getGenre());
+            movieValues.put("language", "中文");
+            movieValues.put("country", "中国");
+            movieValues.put("description", movie.getDescription());
+            movieValues.put("year", movie.getYear());
+
+            movieId = db.insert(TABLE_MOVIES, null, movieValues);
+
+            if (movieId != -1) {
+                ContentValues classifiedValues = new ContentValues();
+                classifiedValues.put("movie_id", movieId);
+                classifiedValues.put("name", movie.getTitle());
+                classifiedValues.put("category", movie.getCategory());
+                classifiedValues.put("address", movie.getAddress());
+
+                db.insert(TABLE_CLASSIFIED, null, classifiedValues);
+            }
+
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+        return movieId;
+    }
+
+
+
+
+
 }

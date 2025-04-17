@@ -10,10 +10,9 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:src="@mipmap/icon" />
+        android:layout_height="350dp"
+        android:src="@mipmap/icon"
+        android:scaleType="fitXY" />
 
     <TextView
         android:layout_width="match_parent"

@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:background="@mipmap/back_mine">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/collection_recycler_view"

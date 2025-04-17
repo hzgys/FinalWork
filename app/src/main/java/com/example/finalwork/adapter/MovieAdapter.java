@@ -46,6 +46,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return new MovieViewHolder(view);
     }
 
+    public interface OnItemLongClickListener {
+        boolean onItemLongClick(Movie movie, int position);
+    }
+
+    private OnItemLongClickListener onItemLongClickListener;
+
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        this.onItemLongClickListener = listener;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Movie movie = filteredList.get(position);
@@ -58,6 +68,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 .error(R.drawable.placeholder_movie)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop();
+
+
+
+        holder.itemView.setOnLongClickListener(v -> {
+            if (onItemLongClickListener != null) {
+                return onItemLongClickListener.onItemLongClick(movie, position);
+            }
+            return false;
+        });
 
         try {
             String imageUrl = movie.getImageUrl();
@@ -115,6 +134,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             }
         }
         notifyDataSetChanged();
+    }
+
+
+    public void removeMovie(int position) {
+        if (position >= 0 && position < filteredList.size()) {
+            filteredList.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    // 更新电影
+    public void updateMovie(Movie updatedMovie, int position) {
+        if (position >= 0 && position < filteredList.size()) {
+            filteredList.set(position, updatedMovie);
+            notifyItemChanged(position);
+        }
     }
 
     static class MovieViewHolder extends RecyclerView.ViewHolder {
