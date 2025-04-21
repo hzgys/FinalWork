@@ -157,7 +157,7 @@ public class RecommendFragment extends Fragment {
         // 1. 获取当前用户的评分数据
         Map<Long, Double> userRatings = getUserRatings(currentUserId);
 
-        // 2. 计算���户相似度并获取相似用户
+        // 2. 计算用户相似度并获取相似用户
         List<UserSimilarity> similarities = getSimilarUsers(userRatings);
 
         // 3. 收集推荐候选电影

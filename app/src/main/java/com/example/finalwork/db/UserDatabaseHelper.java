@@ -1,5 +1,6 @@
 package com.example.finalwork.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -31,6 +32,45 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_CREATE); // 执行创建表的SQL语句
         db.execSQL(TABLE_CREATE_PREFERENCES);
+
+        generateTestUsers(db);
+    }
+
+    private void generateTestUsers(SQLiteDatabase db) {
+        String[] movieTypes = {"剧情", "喜剧", "犯罪", "爱情", "动画", "冒险"};
+
+        for (int i = 1; i <= 40; i++) {
+            // 插入用户
+            ContentValues userValues = new ContentValues();
+            userValues.put("username", "test_user_" + i);
+            userValues.put("password", "password" + i);
+            long userId = db.insert("users", null, userValues);
+
+            // 插入用户偏好
+            if (userId != -1) {
+                ContentValues prefValues = new ContentValues();
+                prefValues.put("user_id", userId);
+
+                // 随机选择一个电影类型
+                String randomType = movieTypes[(int) (Math.random() * movieTypes.length)];
+                prefValues.put("preferred_type", randomType);
+
+                // 设置preferred_type_id
+                int preferredTypeId;
+                switch (randomType) {
+                    case "剧情": preferredTypeId = 1; break;
+                    case "喜剧": preferredTypeId = 2; break;
+                    case "犯罪": preferredTypeId = 3; break;
+                    case "爱情": preferredTypeId = 4; break;
+                    case "动画": preferredTypeId = 5; break;
+                    case "冒险": preferredTypeId = 6; break;
+                    default: preferredTypeId = 0;
+                }
+                prefValues.put("preferred_type_id", preferredTypeId);
+
+                db.insert("user_preferences", null, prefValues);
+            }
+        }
     }
     public boolean updatePassword(long userId, String newPassword) {
         SQLiteDatabase db = this.getWritableDatabase();

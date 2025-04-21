@@ -33,7 +33,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
 
     private ImageView posterImage;
-    private TextView titleText, directorText, actorsText, descriptionText, ratingText;
+    private TextView titleText, directorText, genreText, actorsText, descriptionText, ratingText;
     private Button favoriteButton;
     private VideoView videoView;
     private Button playButton;
@@ -165,6 +165,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         titleText = findViewById(R.id.movie_detail_title);
         directorText = findViewById(R.id.movie_detail_director);
         actorsText = findViewById(R.id.movie_detail_actors);
+        genreText = findViewById(R.id.movie_detail_genre);
         descriptionText = findViewById(R.id.movie_detail_description);
         ratingText = findViewById(R.id.movie_detail_rating);
         favoriteButton = findViewById(R.id.btn_favorite);
@@ -238,6 +239,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private void displayMovieDetails() {
         titleText.setText(movie.getTitle());
         directorText.setText("导演: " + movie.getDirector());
+        genreText.setText("类型: " + movie.getCategory());
         actorsText.setText("演员: " + movie.getActors());
         descriptionText.setText(movie.getDescription());
         ratingText.setText(String.format("评分: %.1f", movie.getRating()));
