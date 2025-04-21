@@ -42,7 +42,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         for (int i = 1; i <= 40; i++) {
             // 插入用户
             ContentValues userValues = new ContentValues();
-            userValues.put("username", "test_user_" + i);
+            userValues.put("username", "user_" + i);
             userValues.put("password", "password" + i);
             long userId = db.insert("users", null, userValues);
 

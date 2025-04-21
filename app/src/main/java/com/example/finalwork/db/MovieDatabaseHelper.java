@@ -87,6 +87,7 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_RATINGS_TABLE);
         importMoviesFromCsv(db);
         importClassifiedMoviesFromCsv(db);
+        generateTestRatings(db);
     }
 
     @Override
@@ -556,6 +557,8 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
+
+
     //电影的增删改查
     public boolean deleteMovie(long movieId) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -649,6 +652,66 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
         return movieId;
     }
 
+
+    private void generateTestRatings(SQLiteDatabase db) {
+        // 获取所有电影ID
+        Cursor movieCursor = db.query("movies",
+                new String[]{"id"},
+                null, null, null, null, null);
+
+        List<Long> movieIds = new ArrayList<>();
+        while (movieCursor.moveToNext()) {
+            movieIds.add(movieCursor.getLong(0));
+        }
+        movieCursor.close();
+
+        // 评论内容选项
+        String[] comments = {"还不错", "很好", "不行"};
+
+        // 生成800条随机评分
+        for (int i = 0; i < 800; i++) {
+            ContentValues values = new ContentValues();
+
+            // 随机选择用户ID (1-40)
+            long userId = (long)(Math.random() * 40) + 1;
+
+            // 随机选择电影ID
+            long movieId = movieIds.get((int)(Math.random() * movieIds.size()));
+
+            // 生成20-100之间的随机评分
+            float rating = (float)(Math.random() * 80 + 20);
+
+            // 根据评分选择评论
+            String comment;
+            if (rating >= 80) {
+                comment = "很好";
+            } else if (rating >= 50) {
+                comment = "还不错";
+            } else {
+                comment = "不行";
+            }
+
+            values.put("user_id", userId);
+            values.put("movie_id", movieId);
+            values.put("rating", rating);
+            values.put("comment", comment);
+            values.put("create_time", System.currentTimeMillis());
+
+            // 避免重复评分
+            Cursor checkCursor = db.query("ratings",
+                    new String[]{"id"},
+                    "user_id = ? AND movie_id = ?",
+                    new String[]{String.valueOf(userId), String.valueOf(movieId)},
+                    null, null, null);
+
+            if (checkCursor.getCount() == 0) {
+                db.insert("ratings", null, values);
+            } else {
+                i--; // 如果重复了,重新生成一条
+            }
+            checkCursor.close();
+        }
+    }
 
 
 
